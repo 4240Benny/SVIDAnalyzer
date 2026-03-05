@@ -1,0 +1,13 @@
+{
+  "version": "1.0.0",
+  "apiVersion": "1.0.0",
+  "author": "SVID Decoder",
+  "name": "SVID Protocol Analyzer",
+  "description": "Decodes Serial VID (SVID) protocol. Covers all commands, registers, ACK/NAK/REJECT encoding, parity checking, and VR response data.",
+  "extensions": {
+    "SVIDAnalyzer": {
+      "type": "HighLevelAnalyzer",
+      "entryPoint": "SVIDAnalyzer.SVIDAnalyzer"
+    }
+  }
+}
