@@ -123,9 +123,13 @@ def _addr(a): return ALL_CALL.get(a, f"VR{a}")
 def _cmd(c):  return COMMANDS.get(c, f"0x{c:02X}")
 
 
+def _vid_to_voltage(vid: int) -> float:
+    return round(vid * 0.005 + 0.245, 4)
+
 def _payload_str(cmd, payload, last_reg):
     if cmd in (0x01, 0x02, 0x03):
-        return f"VID=0x{payload:02X}"
+        v = _vid_to_voltage(payload)
+        return f"VID=0x{payload:02X} => {v:.4f}V"
     if cmd == 0x04:
         return POWER_STATES.get(payload, f"PS=0x{payload:02X}")
     if cmd == 0x05:
@@ -168,7 +172,9 @@ def _vrdata_str(reg_addr, vrd):
     if reg_addr in (0x2B, 0x2C, 0x2D):
         x = vrd & 0x0F; y = (vrd >> 4) & 0x0F
         return f"{(x/16.0)*(2**y):.2f}µs"
-    if reg_addr == 0x31: return f"VID=0x{vrd:02X}"
+    if reg_addr == 0x31:
+        v = _vid_to_voltage(vrd)
+        return f"VID=0x{vrd:02X} => {v:.4f}V" 
     if reg_addr == 0x32: return POWER_STATES.get(vrd, f"0x{vrd:02X}")
     if reg_addr == 0x33:
         sign = "-" if vrd & 0x80 else "+"

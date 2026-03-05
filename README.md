@@ -1,6 +1,6 @@
 # SVID Protocol Analyzer — Saleae Logic 2 HLA
 
-(vibe coded with claude - WTFPL license)
+(mostly vibe coded with claude - WTFPL license)
 
 Decodes **Serial VID (SVID)** protocol.
 
